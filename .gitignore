@@ -14,3 +14,7 @@ __pycache__/
 # Artefacts and data (we will manage these intentionally later)
 artefacts/*
 data/processed/*
+
+# Raw data (big files) - do not commit
+data/raw/*
+!data/raw/.gitkeep
