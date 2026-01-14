@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/yasjudanulislam/Documents/MLOps/retailrocket-item2item-mlops/mlruns/223147516794669849/8e0d1b06235c4b09beb4e20550203951/artifacts
+end_time: 1768351765627
+entry_point_name: ''
+experiment_id: '223147516794669849'
+lifecycle_stage: active
+run_id: 8e0d1b06235c4b09beb4e20550203951
+run_name: bustling-mare-742
+run_uuid: 8e0d1b06235c4b09beb4e20550203951
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1768351765616
+status: 3
+tags: []
+user_id: yasjudanulislam

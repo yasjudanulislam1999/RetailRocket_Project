@@ -1,0 +1,23 @@
+{
+  "params": {
+    "topk": 50,
+    "view_weight": 1.0,
+    "buy_weight": 3.0,
+    "eval_max_sessions": 50000
+  },
+  "metrics": {
+    "buy_total_tested": 2643,
+    "buy_skipped_small": 15029,
+    "buy_skipped_no_recs": 0,
+    "buy_hit@10": 0.9515701853953841,
+    "buy_hit@20": 0.9693530079455165,
+    "buy_hit@50": 0.9841089670828603,
+    "view_sessions_seen": 50000,
+    "view_total_tested": 7332,
+    "view_skipped_small": 42668,
+    "view_skipped_no_recs": 0,
+    "view_hit@10": 0.6152482269503546,
+    "view_hit@20": 0.7393617021276596,
+    "view_hit@50": 0.8666121112929623
+  }
+}
