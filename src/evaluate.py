@@ -9,6 +9,8 @@ import pandas as pd
 import mlflow
 
 from src.config import Config
+from dotenv import load_dotenv
+load_dotenv()
 
 
 def load_topk(path: Path) -> Dict[int, List[int]]:
@@ -176,6 +178,17 @@ def eval_sessions_stream(
 
 def main() -> None:
     cfg = Config()
+    user = os.getenv("DAGSHUB_USERNAME")
+    token = os.getenv("DAGSHUB_TOKEN")
+
+    print("DAGSHUB_USERNAME set:", bool(user))
+    print("DAGSHUB_TOKEN set:", bool(token))
+
+    if user and token:
+        os.environ["MLFLOW_TRACKING_USERNAME"] = user
+        os.environ["MLFLOW_TRACKING_PASSWORD"] = token
+    else:
+        print("WARNING: Missing DAGSHUB_USERNAME or DAGSHUB_TOKEN. Remote logging will fail.")
 
     topk_path = Path("artefacts/topk.json")
     sessions_path = Path("data/processed/sessions.csv")
@@ -225,10 +238,17 @@ def main() -> None:
         json.dump(report, f, indent=2)
 
     # ---- MLflow logging (local) ----
-    mlflow.set_tracking_uri("file:./mlruns")
+
+    
+    tracking_uri = os.getenv("MLFLOW_TRACKING_URI", "file:./mlruns")
+    print("MLFLOW_TRACKING_URI =", tracking_uri)  # so we can SEE what is being used
+    # Put runs under a meaningful experiment name (creates it if missing)
     mlflow.set_experiment("retailrocket-item2item")
 
-    with mlflow.start_run():
+    run_name = f"wV{cfg.view_weight}_wB{cfg.buy_weight}_topk{cfg.topk}_eval{max_sessions}"
+
+    with mlflow.start_run(run_name=run_name):
+
         # Params
         mlflow.log_param("topk", cfg.topk)
         mlflow.log_param("view_weight", cfg.view_weight)
@@ -254,7 +274,7 @@ def main() -> None:
 
     print("\nDONE ✅")
     print(f"Saved eval report: {out_report}")
-    print("MLflow saved run to: ./mlruns")
+    print("MLflow saved run to: ",tracking_uri)
     print("\nQuick metrics:")
     print(f"BUY  Hit@10={buy_metrics['buy_hit@10']:.4f}  Hit@20={buy_metrics['buy_hit@20']:.4f}  Hit@50={buy_metrics['buy_hit@50']:.4f}")
     print(f"VIEW Hit@10={view_metrics['view_hit@10']:.4f}  Hit@20={view_metrics['view_hit@20']:.4f}  Hit@50={view_metrics['view_hit@50']:.4f}")

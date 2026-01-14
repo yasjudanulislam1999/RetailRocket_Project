@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/yasjudanulislam/Documents/MLOps/retailrocket-item2item-mlops/mlruns/0/478c9030ed074233866e72eda119ae36/artifacts
+end_time: 1768384939179
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 478c9030ed074233866e72eda119ae36
+run_name: charming-wolf-402
+run_uuid: 478c9030ed074233866e72eda119ae36
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1768384939167
+status: 3
+tags: []
+user_id: yasjudanulislam

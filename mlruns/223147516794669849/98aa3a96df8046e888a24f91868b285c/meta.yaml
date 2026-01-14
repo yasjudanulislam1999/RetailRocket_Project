@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/yasjudanulislam/Documents/MLOps/retailrocket-item2item-mlops/mlruns/223147516794669849/98aa3a96df8046e888a24f91868b285c/artifacts
+end_time: 1768384503124
+entry_point_name: ''
+experiment_id: '223147516794669849'
+lifecycle_stage: active
+run_id: 98aa3a96df8046e888a24f91868b285c
+run_name: debonair-grub-70
+run_uuid: 98aa3a96df8046e888a24f91868b285c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1768384503112
+status: 3
+tags: []
+user_id: yasjudanulislam
