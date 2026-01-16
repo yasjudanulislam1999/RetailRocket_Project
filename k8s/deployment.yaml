@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: retailrocket-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: retailrocket-api
+  template:
+    metadata:
+      labels:
+        app: retailrocket-api
+    spec:
+      containers:
+        - name: api
+          image: retailrocket-api:local
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
