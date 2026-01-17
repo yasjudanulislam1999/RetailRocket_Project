@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest ruff
+
+      - name: Lint (only real errors)
+        run: |
+          ruff check src tests --select F,E9
+
+      - name: Run tests
+        run: |
+          python -m pytest -q
+
+      - name: Docker build
+        run: |
+          docker build -f docker/Dockerfile -t retailrocket-api:ci .
+
+      - name: Docker run + health check
+        run: |
+          docker run -d --rm -p 8000:8000 --name retailrocket-api retailrocket-api:ci
+          # try health a few times (container needs a moment to start)
+          for i in 1 2 3 4 5 6 7 8 9 10; do
+            curl -fsS "http://127.0.0.1:8000/health" && break
+            sleep 1
+          done
+          curl -fsS "http://127.0.0.1:8000/health"
+          docker logs retailrocket-api | tail -n 50
+          docker stop retailrocket-api
