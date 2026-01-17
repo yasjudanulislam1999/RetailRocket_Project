@@ -12,7 +12,7 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 
 # Copy the app code + artefacts we need
 COPY src /app/src
-COPY artefacts /app/artefacts
+RUN mkdir -p /app/artefacts
 
 # Expose API port
 EXPOSE 8000
